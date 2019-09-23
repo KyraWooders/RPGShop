@@ -9,6 +9,13 @@ namespace RPGShop
     class Potion : Item
     {
         private int _heal;
+        public int Heal
+        {
+            get
+            {
+                return _heal;
+            }
+        }
         //help to create a new potion item
         public Potion(string newName, int newHeal, int newCost)
         {

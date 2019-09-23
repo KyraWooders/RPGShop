@@ -9,6 +9,13 @@ namespace RPGShop
     class ArmorItem : Item
     {
         int _defence = 0;
+        public int Defence
+        {
+            get
+            {
+                return _defence;
+            }
+        }
         //help to create a new armor item
         public ArmorItem(string newName, int newDefence, int newCost)
         {

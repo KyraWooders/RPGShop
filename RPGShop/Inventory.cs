@@ -98,6 +98,7 @@ namespace RPGShop
 
             }
         }
+
         //open menu to buy weapons
         public void Weapon()
         {
@@ -151,12 +152,64 @@ namespace RPGShop
         //open menu to buy armor
         public void Armor()
         {
+            string choice = "";
+            while (choice != "0")
+            {
+                //display menu
+                Console.WriteLine("What weapon would you like to buy?");
+                Console.WriteLine("0: Go Back");
+                Console.WriteLine("1:" + light._name + " Defence:" + light.Defence + " Cost:" + light._cost);
+                Console.WriteLine("2:" + medium._name + " Defence:" + medium.Defence + " Cost:" + medium._cost);
+                Console.WriteLine("3:" + heavy._name + " Defence:" + heavy.Defence + " Cost:" + heavy._cost);
+                //input
+                choice = Console.ReadLine();
+                Console.WriteLine();
+                //check input
+                if (choice == "1")
+                {
+                    Console.WriteLine("You have equiped !");
+                }
+                else if (choice == "2")
+                {
+                    Console.WriteLine("You have equiped !");
+                }
+                else if (choice == "3")
+                {
+                    Console.WriteLine("You have equiped !");
+                }
 
+            }
         }
         //open menu to buy potion
         public void Potion()
         {
+            string choice = "";
+            while (choice != "0")
+            {
+                //display menu
+                Console.WriteLine("What weapon would you like to buy?");
+                Console.WriteLine("0: Go Back");
+                Console.WriteLine("1:" + small._name + " Heals:" + small.Heal + " Cost:" + small._cost);
+                Console.WriteLine("2:" + mid._name + " Heals:" + mid.Heal + " Cost:" + mid._cost);
+                Console.WriteLine("3:" + all._name + " Heals:" + all.Heal + " Cost:" + all._cost);
+                //input
+                choice = Console.ReadLine();
+                Console.WriteLine();
+                //check input
+                if (choice == "1")
+                {
+                    Console.WriteLine("You have equiped " + small._name + "!");
+                }
+                else if (choice == "2")
+                {
+                    Console.WriteLine("You have equiped " + mid._name + "!");
+                }
+                else if (choice == "3")
+                {
+                    Console.WriteLine("You have equiped " + all._name + "!");
+                }
 
+            }
         }
 
     }

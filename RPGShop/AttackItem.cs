@@ -31,5 +31,6 @@ namespace RPGShop
         public override int GetCost(int newCost)
         {
             return _cost;
+        }
     }
 }
