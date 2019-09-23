@@ -10,5 +10,13 @@ namespace RPGShop
     {
         public string _name;
         public int _cost;
+        public virtual void GetName(string newName)
+        {
+            
+        }
+        public virtual int GetCost(int newCost)
+        {
+            return _cost;
+        }
     }
 }

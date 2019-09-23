@@ -8,7 +8,7 @@ namespace RPGShop
 {
     class AttackItem : Item
     {
-        private int _damage;
+        int _damage = 0;
         //it returns to damage
         public int Damage
         {
@@ -24,5 +24,12 @@ namespace RPGShop
             _damage = newDamage;
             _cost = newCost;
         }
+        public override void GetName(string newName)
+        {
+            _name = newName;
+        }
+        public override int GetCost(int newCost)
+        {
+            return _cost;
     }
 }

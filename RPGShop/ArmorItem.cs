@@ -8,13 +8,21 @@ namespace RPGShop
 {
     class ArmorItem : Item
     {
-        private int _defence;
-        //help to create a new attack item
+        int _defence = 0;
+        //help to create a new armor item
         public ArmorItem(string newName, int newDefence, int newCost)
         {
             _name = newName;
             _defence = newDefence;
             _cost = newCost;
+        }
+        public override void GetName(string newName)
+        {
+            _name = newName;
+        }
+        public override int GetCost(int newCost)
+        {
+            return _cost;
         }
     }
 }
