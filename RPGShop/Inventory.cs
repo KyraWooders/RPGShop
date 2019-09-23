@@ -17,15 +17,19 @@ namespace RPGShop
         private AttackItem yo = new AttackItem("Metal Yo-Yo", 40, 15);
         private AttackItem hammer = new AttackItem("Hammer", 50, 40);
         private AttackItem warhammer = new AttackItem("War Hammer", 60, 50);
+             //holds the array
         private AttackItem[] weapons = new AttackItem[6];
         private ArmorItem light = new ArmorItem("Light Armor", 10, 5);
         private ArmorItem medium = new ArmorItem("Medium Armor", 30, 30);
         private ArmorItem heavy = new ArmorItem("Heavy Armor", 100, 80);
+             //holds the array
         private ArmorItem[] armors = new ArmorItem[3];
         private Potion small = new Potion("Small Potion", 20, 5);
         private Potion mid = new Potion("Medium Potion", 50, 30);
         private Potion all = new Potion("Heal To Max", 100, 50);
+             //holds the array
         private Potion[] potions = new Potion[3];
+        //keeps track item arrays
         public Inventory()
         {
             AttackItem[] weaponBag = { dagger, sword, bow, yo, hammer, warhammer };
@@ -43,11 +47,12 @@ namespace RPGShop
             while (choice != "0")
             {
                 //display menu
-                Console.WriteLine("Welcome to the Shop. What would you like to do?");
+                Console.WriteLine("Welcome to the Shop.");
                 //shows how much gold they have at the moment
                 Console.WriteLine("Gold: " + _gold);
+                Console.WriteLine("");
+                Console.WriteLine("What would you like to do?");
                 //shows the items they have at the moment
-                Console.WriteLine("Items:" );
                 Console.WriteLine("0: End Game");
                 Console.WriteLine("1: Add Gold");
                 Console.WriteLine("2: Buy Item");
@@ -116,6 +121,7 @@ namespace RPGShop
             while (choice != "0")
             {
                 //display menu
+                Console.WriteLine("");
                 Console.WriteLine("What weapon would you like to buy?");
                 Console.WriteLine("0: Go Back");
                 Console.WriteLine("1: " + dagger._name + " Damage:" + dagger.Damage + " Cost:" + dagger._cost);
@@ -244,15 +250,51 @@ namespace RPGShop
                 //check input
                 if (choice == "1")
                 {
-                    Console.WriteLine("You have equiped " + light._name + "!");
+                    _itemCost = armors[0]._cost;
+                    if (_gold < _itemCost)
+                    {
+                        Console.WriteLine("You can't buy this item.");
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have equiped " + light._name + "!");
+                        _gold -= _itemCost;
+                        Console.WriteLine("Gold: " + _gold);
+                    }
+                    
                 }
                 else if (choice == "2")
                 {
-                    Console.WriteLine("You have equiped " + medium._name + "!");
+                    _itemCost = armors[1]._cost;
+                    if (_gold < _itemCost)
+                    {
+                        Console.WriteLine("You can't buy this item.");
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have equiped " + medium._name + "!");
+                        _gold -= _itemCost;
+                        Console.WriteLine("Gold: " + _gold);
+                    }
+                    
                 }
                 else if (choice == "3")
                 {
-                    Console.WriteLine("You have equiped " + heavy._name + "!");
+                    _itemCost = armors[2]._cost;
+                    if (_gold < _itemCost)
+                    {
+                        Console.WriteLine("You can't buy this item.");
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have equiped " + heavy._name + "!");
+                        _gold -= _itemCost;
+                        Console.WriteLine("Gold: " + _gold);
+                    }
+                    
                 }
 
             }
@@ -275,24 +317,54 @@ namespace RPGShop
                 //check input
                 if (choice == "1")
                 {
-                    Console.WriteLine("You have equiped " + small._name + "!");
+                    _itemCost = potions[0]._cost;
+                    if (_gold < _itemCost)
+                    {
+                        Console.WriteLine("You can't buy this item.");
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have equiped " + small._name + "!");
+                        _gold -= _itemCost;
+                        Console.WriteLine("Gold: " + _gold);
+                    }
+                    
                 }
                 else if (choice == "2")
                 {
-                    Console.WriteLine("You have equiped " + mid._name + "!");
+                    _itemCost = potions[1]._cost;
+                    if (_gold < _itemCost)
+                    {
+                        Console.WriteLine("You can't buy this item.");
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have equiped " + mid._name + "!");
+                        _gold -= _itemCost;
+                        Console.WriteLine("Gold: " + _gold);
+                    }
+                    
                 }
                 else if (choice == "3")
                 {
-                    Console.WriteLine("You have equiped " + all._name + "!");
+                    _itemCost = potions[2]._cost;
+                    if (_gold < _itemCost)
+                    {
+                        Console.WriteLine("You can't buy this item.");
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have equiped " + all._name + "!");
+                        _gold -= _itemCost;
+                        Console.WriteLine("Gold: " + _gold);
+                    }
+                    
                 }
 
             }
         }
-        //public void Buy(float amount)
-        //{
-            
-        //    _gold -= amount;
-        //    Console.WriteLine("Gold: " + _gold);
-        //}
     }
 }
