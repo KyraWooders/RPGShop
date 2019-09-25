@@ -8,7 +8,8 @@ namespace RPGShop
 {
     class Shop
     {
-        private PlayerChange Playewr = new PlayerChange();
+        private Player player = new Player();
+        private Inventory inventory = new Inventory();
         private int _itemCost = 0;
         private float _gold = 0.00f;
         //create a butch of items
@@ -39,6 +40,73 @@ namespace RPGShop
             armors = armorBag;
             Potion[] potionBag = { small, mid, all };
             potions = potionBag;
+        }
+        //the opening menu
+        public void Menu()
+        {
+            string choice = "";
+            while (choice != "0")
+            {
+                //display menu
+                Console.WriteLine("Welcome to the Shop.");
+                //shows how much gold they have at the moment
+                Console.WriteLine("");
+                Console.WriteLine("What would you like to do?");
+                //shows the items they have at the moment
+                Console.WriteLine("0: End Game");
+                Console.WriteLine("1: Buy Item");
+                Console.WriteLine("2: Add Gold");
+                Console.WriteLine("3: See your Inventory");
+                //input
+                choice = Console.ReadLine();
+                Console.WriteLine();
+                //check input
+                if (choice == "1")
+                {
+                    BuyItem();
+                }
+                else if (choice == "2")
+                {
+                    Console.Write("How much gold? ");
+                    Console.WriteLine("");
+                    float addedGold = Convert.ToSingle(Console.ReadLine());
+                    inventory.AddGold(addedGold);
+                }
+                else if (choice == "3")
+                {
+                    player.PlayerInventory();
+                }
+            }
+        }
+        public void BuyItem()
+        {
+            string choice = "";
+            while (choice != "0")
+            {
+                //display menu
+                Console.WriteLine("What would you like to buy?");
+                Console.WriteLine("0: Go Back");
+                Console.WriteLine("1: Weapon");
+                Console.WriteLine("2: Armor");
+                Console.WriteLine("3: Potion");
+                //input
+                choice = Console.ReadLine();
+                Console.WriteLine();
+                //check input
+                if (choice == "1")
+                {
+                    Weapon();
+                }
+                else if (choice == "2")
+                {
+                    Armor();
+                }
+                else if (choice == "3")
+                {
+                    Potion();
+                }
+
+            }
         }
         //open menu to buy weapons
         public void Weapon()
@@ -74,7 +142,7 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + dagger._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(weapons[0]);
+                        inventory.Add(weapons[0]);
                     }
                 }
                 else if (choice == "2")
@@ -90,7 +158,7 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + sword._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(weapons[1]);
+                        inventory.Add(weapons[1]);
                     }
                 }
                 else if (choice == "3")
@@ -106,7 +174,7 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + bow._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(weapons[2]);
+                        inventory.Add(weapons[2]);
                     }
 
                 }
@@ -123,7 +191,7 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + yo._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(weapons[3]);
+                        inventory.Add(weapons[3]);
                     }
 
                 }
@@ -140,7 +208,7 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + hammer._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(weapons[4]);
+                        inventory.Add(weapons[4]);
                     }
 
                 }
@@ -157,7 +225,7 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + warhammer._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(weapons[5]);
+                        inventory.Add(weapons[5]);
                     }
 
                 }
@@ -194,7 +262,7 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + light._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(armors[0]);
+                        inventory.Add(armors[0]);
                     }
 
                 }
@@ -211,7 +279,7 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + medium._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(armors[1]);
+                        inventory.Add(armors[1]);
                     }
 
                 }
@@ -228,7 +296,7 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + heavy._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        Playewr.Add(armors[2]);
+                        inventory.Add(armors[2]);
                     }
 
                 }
@@ -264,6 +332,7 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + small._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
+                        inventory.Add(potions[0]);
                     }
 
                 }
@@ -280,6 +349,7 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + mid._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
+                        inventory.Add(potions[1]);
                     }
 
                 }
@@ -296,6 +366,7 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + all._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
+                        inventory.Add(potions[2]);
                     }
 
                 }

@@ -14,7 +14,7 @@ namespace RPGShop
             Console.WriteLine("Enter your name:");
             name = Console.ReadLine();
 
-            Inventory inventory = new Inventory();
+            Shop inventory = new Shop();
             inventory.Menu();
 
 

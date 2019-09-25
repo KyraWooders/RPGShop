@@ -9,12 +9,14 @@ namespace RPGShop
 {
     class Player
     {
+        private Inventory inventory = new Inventory();
         private float _gold = 0.00f;
         private string _name = "";
 
         public void PlayerInventory()
         {
             Console.WriteLine("You have");
+            
             Console.WriteLine("Gold: " + _gold);
         }
     }
