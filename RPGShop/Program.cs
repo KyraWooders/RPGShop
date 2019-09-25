@@ -10,11 +10,15 @@ namespace RPGShop
     {
         static void Main(string[] args)
         {
+            string name = "";
+            Console.WriteLine("Enter your name:");
+            name = Console.ReadLine();
+
             Inventory inventory = new Inventory();
             inventory.Menu();
 
 
-            Console.WriteLine("Okay then. Bye-Bye~");
+            Console.WriteLine("Okay then. Thank you for coming by. Bye-Bye~");
             Console.ReadKey();
         }
     }
