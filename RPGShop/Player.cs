@@ -16,7 +16,6 @@ namespace RPGShop
         {
             Console.WriteLine("You have");
             Console.WriteLine("Gold: " + _gold);
-            Console.WriteLine()
         }
     }
 }

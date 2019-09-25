@@ -10,7 +10,6 @@ namespace RPGShop
     {
         private InvenChange List;
         private PlayerChange List2;
-
-        public 
+        
     }
 }
