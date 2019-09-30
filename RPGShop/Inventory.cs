@@ -5,14 +5,7 @@ namespace RPGShop
 {
     class Inventory
     {
-        
-        
-       
-        private int _itemCost = 0;
-        private float _gold = 0.00f;
-        
-        
-        
+        protected float _gold = 0.00f;
         //show the amount of gold the player added
         public void AddGold(float amount)
         {
@@ -22,10 +15,15 @@ namespace RPGShop
             Console.WriteLine("Gold: " + _gold);
             Console.WriteLine("");
         }
-        //open menu to buy items
-        
 
-        private Item[] _inventory;
+        public float GetGold()
+        {
+            return _gold;
+        }
+
+        
+        
+        protected Item[] _inventory;
         public Inventory()
         {
             _inventory = new Item[0];
@@ -39,14 +37,33 @@ namespace RPGShop
                 newList[i] = _inventory[i];
             }
             newList[newList.Length - 1] = value;
+            _inventory = newList;
         }
 
-        public void PlayerInventory()
+        public virtual void Remove(int index)
         {
-            Console.WriteLine("You have");
-            Console.WriteLine("Gold: " + _gold);
+            Item[] newList = new Item[_inventory.Length - 1];
+            int newPosition = 0;
+            for (int i = 0; i < _inventory.Length; i++)
+            {
+                if (i != index)
+                {
+                    newList[newPosition] = _inventory[i];
+                    newPosition++;
+                }
+            }
+            _inventory = newList;
         }
-        //private Item[] items = new Item[12];
+
+
+        public virtual void AddedGold()
+        {
+            Console.Write("How much gold? ");
+            Console.WriteLine("");
+            float addedGold = Convert.ToSingle(Console.ReadLine());
+            AddGold(addedGold);
+        }
+        
 
         //to save the player's inventory
         //public void Save(string path)

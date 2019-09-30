@@ -6,40 +6,44 @@ using System.Threading.Tasks;
 
 namespace RPGShop
 {
-    class Shop
+    class Shop : Inventory
     {
-        private Player player = new Player();
-        private Inventory inventory = new Inventory();
+        private Player _player;
+        
+        
         private int _itemCost = 0;
-        private float _gold = 0.00f;
+        
         //create a butch of items
-        private AttackItem dagger = new AttackItem("Dagger", 10, 10);
-        private AttackItem sword = new AttackItem("Sword", 20, 20);
-        private AttackItem bow = new AttackItem("Bow", 30, 25);
-        private AttackItem yo = new AttackItem("Metal Yo-Yo", 40, 15);
-        private AttackItem hammer = new AttackItem("Hammer", 50, 40);
-        private AttackItem warhammer = new AttackItem("War Hammer", 60, 50);
-        //holds the array
-        private AttackItem[] weapons = new AttackItem[6];
-        private ArmorItem light = new ArmorItem("Light Armor", 10, 5);
-        private ArmorItem medium = new ArmorItem("Medium Armor", 30, 30);
-        private ArmorItem heavy = new ArmorItem("Heavy Armor", 100, 80);
-        //holds the array
-        private ArmorItem[] armors = new ArmorItem[3];
-        private Potion small = new Potion("Small Potion", 20, 5);
-        private Potion mid = new Potion("Medium Potion", 50, 30);
-        private Potion all = new Potion("Heal To Max", 100, 50);
-        //holds the array
-        private Potion[] potions = new Potion[3];
+        private Item dagger = new AttackItem("Dagger", 10, 10);
+        private Item sword = new AttackItem("Sword", 20, 20);
+        private Item bow = new AttackItem("Bow", 30, 25);
+        private Item yo = new AttackItem("Metal Yo-Yo", 40, 15);
+        private Item hammer = new AttackItem("Hammer", 50, 40);
+        private Item warhammer = new AttackItem("War Hammer", 60, 50);
+        private Item light = new ArmorItem("Light Armor", 10, 5);
+        private Item medium = new ArmorItem("Medium Armor", 30, 30);
+        private Item heavy = new ArmorItem("Heavy Armor", 100, 80);
+        private Item small = new Potion("Small Potion", 20, 5);
+        private Item mid = new Potion("Medium Potion", 50, 30);
+        private Item all = new Potion("Heal To Max", 100, 50);
+        
+               
+
         //keeps track item arrays
         public Shop()
         {
-            AttackItem[] weaponBag = { dagger, sword, bow, yo, hammer, warhammer };
-            weapons = weaponBag;
-            ArmorItem[] armorBag = { light, medium, heavy };
-            armors = armorBag;
-            Potion[] potionBag = { small, mid, all };
-            potions = potionBag;
+            Add(dagger);
+            Add(sword);
+            Add(bow);
+            Add(yo);
+            Add(hammer);
+            Add(warhammer);
+            Add(light);
+            Add(medium);
+            Add(heavy);
+            Add(small);
+            Add(mid);
+            Add(all);
         }
         //the opening menu
         public void Menu()
@@ -67,17 +71,30 @@ namespace RPGShop
                 }
                 else if (choice == "2")
                 {
-                    Console.Write("How much gold? ");
-                    Console.WriteLine("");
-                    float addedGold = Convert.ToSingle(Console.ReadLine());
-                    inventory.AddGold(addedGold);
+                    AddedGold();
                 }
                 else if (choice == "3")
                 {
-                    player.PlayerInventory();
+                    _player.Print();
+                    Console.WriteLine("Gold: " + _gold);
+                    //while(choice != "0")
+                    //{
+                    //    Console.WriteLine("Would you like to sell your items?");
+                    //    Console.WriteLine("0: No");
+                    //    Console.WriteLine("1: Yes");
+                    //    choice = Console.ReadLine();
+                    //    Console.WriteLine();
+                    //    if (choice == "1")
+                    //    {
+                    //        _player.Sell();
+                    //    }
+                    //}
+                    
+
                 }
             }
         }
+        //open menu to buy items
         public void BuyItem()
         {
             string choice = "";
@@ -119,19 +136,21 @@ namespace RPGShop
                 Console.WriteLine("");
                 Console.WriteLine("What weapon would you like to buy?");
                 Console.WriteLine("0: Go Back");
-                Console.WriteLine("1: " + dagger._name + " Damage:" + dagger.Damage + " Cost:" + dagger._cost);
-                Console.WriteLine("2: " + sword._name + " Damage:" + sword.Damage + " Cost:" + sword._cost);
-                Console.WriteLine("3: " + bow._name + " Damage:" + bow.Damage + " Cost:" + bow._cost);
-                Console.WriteLine("4: " + yo._name + " Damage:" + yo.Damage + " Cost:" + yo._cost);
-                Console.WriteLine("5: " + hammer._name + " Damage:" + hammer.Damage + " Cost:" + hammer._cost);
-                Console.WriteLine("6: " + warhammer._name + " Damage:" + warhammer.Damage + " Cost:" + warhammer._cost);
+                Console.WriteLine("1: " + dagger._name + " Damage: 10"  + " Cost:" + dagger._cost);
+                Console.WriteLine("2: " + sword._name + " Damage: 20"  + " Cost:" + sword._cost);
+                Console.WriteLine("3: " + bow._name + " Damage: 30"  + " Cost:" + bow._cost);
+                Console.WriteLine("4: " + yo._name + " Damage: 40"  + " Cost:" + yo._cost);
+                Console.WriteLine("5: " + hammer._name + " Damage: 50"  + " Cost:" + hammer._cost);
+                Console.WriteLine("6: " + warhammer._name + " Damage: 60"  + " Cost:" + warhammer._cost);
                 //input
                 choice = Console.ReadLine();
                 Console.WriteLine();
                 //check input
                 if (choice == "1")
                 {
-                    _itemCost = weapons[0]._cost;
+                    
+                    _itemCost = _inventory[0]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -142,12 +161,15 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + dagger._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(weapons[0]);
+                        //move the shop item to the player's inventory
+                        Add(_inventory[0]);
+                        Remove(0);
                     }
                 }
                 else if (choice == "2")
                 {
-                    _itemCost = weapons[1]._cost;
+                    _itemCost = _inventory[1]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -158,12 +180,15 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + sword._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(weapons[1]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[1]);
+                        Remove(1);
                     }
                 }
                 else if (choice == "3")
                 {
-                    _itemCost = weapons[2]._cost;
+                    _itemCost = _inventory[2]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -174,13 +199,16 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + bow._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(weapons[2]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[2]);
+                        Remove(2);
                     }
 
                 }
                 else if (choice == "4")
                 {
-                    _itemCost = weapons[3]._cost;
+                    _itemCost = _inventory[3]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -191,13 +219,16 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + yo._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(weapons[3]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[3]);
+                        Remove(3);
                     }
 
                 }
                 else if (choice == "5")
                 {
-                    _itemCost = weapons[4]._cost;
+                    _itemCost = _inventory[4]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -208,13 +239,16 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + hammer._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(weapons[4]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[4]);
+                        Remove(4);
                     }
 
                 }
                 else if (choice == "6")
                 {
-                    _itemCost = weapons[5]._cost;
+                    _itemCost = _inventory[5]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -225,7 +259,9 @@ namespace RPGShop
                         Console.WriteLine("You have bought " + warhammer._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(weapons[5]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[5]);
+                        Remove(5);
                     }
 
                 }
@@ -242,16 +278,17 @@ namespace RPGShop
                 //display menu
                 Console.WriteLine("What weapon would you like to buy?");
                 Console.WriteLine("0: Go Back");
-                Console.WriteLine("1:" + light._name + " Defence:" + light.Defence + " Cost:" + light._cost);
-                Console.WriteLine("2:" + medium._name + " Defence:" + medium.Defence + " Cost:" + medium._cost);
-                Console.WriteLine("3:" + heavy._name + " Defence:" + heavy.Defence + " Cost:" + heavy._cost);
+                Console.WriteLine("1:" + light._name + " Defence: 10"  + " Cost:" + light._cost);
+                Console.WriteLine("2:" + medium._name + " Defence: 30"  + " Cost:" + medium._cost);
+                Console.WriteLine("3:" + heavy._name + " Defence: 100"  + " Cost:" + heavy._cost);
                 //input
                 choice = Console.ReadLine();
                 Console.WriteLine();
                 //check input
                 if (choice == "1")
                 {
-                    _itemCost = armors[0]._cost;
+                    _itemCost = _inventory[6]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -262,13 +299,16 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + light._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(armors[0]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[6]);
+                        Remove(6);
                     }
 
                 }
                 else if (choice == "2")
                 {
-                    _itemCost = armors[1]._cost;
+                    _itemCost = _inventory[7]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -279,13 +319,16 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + medium._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(armors[1]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[7]);
+                        Remove(7);
                     }
 
                 }
                 else if (choice == "3")
                 {
-                    _itemCost = armors[2]._cost;
+                    _itemCost = _inventory[8]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -296,7 +339,9 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + heavy._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(armors[2]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[8]);
+                        Remove(8);
                     }
 
                 }
@@ -312,16 +357,17 @@ namespace RPGShop
                 //display menu
                 Console.WriteLine("What weapon would you like to buy?");
                 Console.WriteLine("0: Go Back");
-                Console.WriteLine("1:" + small._name + " Heals:" + small.Heal + " Cost:" + small._cost);
-                Console.WriteLine("2:" + mid._name + " Heals:" + mid.Heal + " Cost:" + mid._cost);
-                Console.WriteLine("3:" + all._name + " Heals:" + all.Heal + " Cost:" + all._cost);
+                Console.WriteLine("1:" + small._name + " Heals: 20"  + " Cost:" + small._cost);
+                Console.WriteLine("2:" + mid._name + " Heals: 50"  + " Cost:" + mid._cost);
+                Console.WriteLine("3:" + all._name + " Heals: 100"  + " Cost:" + all._cost);
                 //input
                 choice = Console.ReadLine();
                 Console.WriteLine();
                 //check input
                 if (choice == "1")
                 {
-                    _itemCost = potions[0]._cost;
+                    _itemCost = _inventory[9]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -332,13 +378,16 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + small._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(potions[0]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[9]);
+                        Remove(9);
                     }
 
                 }
                 else if (choice == "2")
                 {
-                    _itemCost = potions[1]._cost;
+                    _itemCost = _inventory[10]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -349,13 +398,16 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + mid._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(potions[1]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[10]);
+                        Remove(10);
                     }
 
                 }
                 else if (choice == "3")
                 {
-                    _itemCost = potions[2]._cost;
+                    _itemCost = _inventory[11]._cost;
+                    //check if the player have enough gold
                     if (_gold < _itemCost)
                     {
                         Console.WriteLine("You can't buy this item.");
@@ -366,7 +418,9 @@ namespace RPGShop
                         Console.WriteLine("You have equiped " + all._name + "!");
                         _gold -= _itemCost;
                         Console.WriteLine("Gold: " + _gold);
-                        inventory.Add(potions[2]);
+                        //move the shop item to the player's inventory
+                        _player.Add(_inventory[11]);
+                        Remove(11);
                     }
 
                 }

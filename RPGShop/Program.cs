@@ -13,8 +13,10 @@ namespace RPGShop
             string name = "";
             Console.WriteLine("Enter your name:");
             name = Console.ReadLine();
-
+            //add a player
+            Player player = new Player();
             Shop inventory = new Shop();
+            //Shop inventory = new Shop(variable);
             inventory.Menu();
 
 
