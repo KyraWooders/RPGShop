@@ -11,15 +11,17 @@ namespace RPGShop
         static void Main(string[] args)
         {
             string name = "";
-            Console.WriteLine("Enter your name:");
-            name = Console.ReadLine();
             //add a player
             Player player = new Player();
-            Shop inventory = new Shop();
-            //Shop inventory = new Shop(variable);
+            Shop inventory = new Shop(player);
+            Console.WriteLine("Enter your name:");
+            name = Console.ReadLine();
+            //to access superuser
+            if (name == "Kyra")
+            {
+                inventory.SuperCode();
+            }
             inventory.Menu();
-
-
             Console.WriteLine("Okay then. Thank you for coming by. Bye-Bye~");
             Console.ReadKey();
         }

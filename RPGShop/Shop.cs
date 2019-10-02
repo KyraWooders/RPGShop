@@ -9,10 +9,7 @@ namespace RPGShop
     class Shop : Inventory
     {
         private Player _player;
-        
-        
-        private int _itemCost = 0;
-        
+        protected int _itemCost = 0;
         //create a butch of items
         private Item dagger = new AttackItem("Dagger", 10, 10);
         private Item sword = new AttackItem("Sword", 20, 20);
@@ -26,12 +23,10 @@ namespace RPGShop
         private Item small = new Potion("Small Potion", 20, 5);
         private Item mid = new Potion("Medium Potion", 50, 30);
         private Item all = new Potion("Heal To Max", 100, 50);
-        
-               
-
         //keeps track item arrays
-        public Shop()
+        public Shop(Player player)
         {
+            _player = player;
             Add(dagger);
             Add(sword);
             Add(bow);
@@ -53,10 +48,8 @@ namespace RPGShop
             {
                 //display menu
                 Console.WriteLine("Welcome to the Shop.");
-                //shows how much gold they have at the moment
                 Console.WriteLine("");
                 Console.WriteLine("What would you like to do?");
-                //shows the items they have at the moment
                 Console.WriteLine("0: End Game");
                 Console.WriteLine("1: Buy Item");
                 Console.WriteLine("2: Add Gold");
@@ -76,20 +69,8 @@ namespace RPGShop
                 else if (choice == "3")
                 {
                     _player.Print();
+                    //shows how much gold they have at the moment
                     Console.WriteLine("Gold: " + _gold);
-                    //while(choice != "0")
-                    //{
-                    //    Console.WriteLine("Would you like to sell your items?");
-                    //    Console.WriteLine("0: No");
-                    //    Console.WriteLine("1: Yes");
-                    //    choice = Console.ReadLine();
-                    //    Console.WriteLine();
-                    //    if (choice == "1")
-                    //    {
-                    //        _player.Sell();
-                    //    }
-                    //}
-                    
 
                 }
             }
@@ -128,142 +109,42 @@ namespace RPGShop
         //open menu to buy weapons
         public void Weapon()
         {
-
-            string choice = "";
-            while (choice != "0")
+            int choice = -1;
+            while (choice != 20)
             {
                 //display menu
                 Console.WriteLine("");
                 Console.WriteLine("What weapon would you like to buy?");
-                Console.WriteLine("0: Go Back");
-                Console.WriteLine("1: " + dagger._name + " Damage: 10"  + " Cost:" + dagger._cost);
-                Console.WriteLine("2: " + sword._name + " Damage: 20"  + " Cost:" + sword._cost);
-                Console.WriteLine("3: " + bow._name + " Damage: 30"  + " Cost:" + bow._cost);
-                Console.WriteLine("4: " + yo._name + " Damage: 40"  + " Cost:" + yo._cost);
-                Console.WriteLine("5: " + hammer._name + " Damage: 50"  + " Cost:" + hammer._cost);
-                Console.WriteLine("6: " + warhammer._name + " Damage: 60"  + " Cost:" + warhammer._cost);
+                Console.WriteLine("20: Go Back");
+                Console.WriteLine("0: " + dagger._name + " Damage: 10" + " Cost:" + dagger._cost);
+                Console.WriteLine("1: " + sword._name + " Damage: 20" + " Cost:" + sword._cost);
+                Console.WriteLine("2: " + bow._name + " Damage: 30" + " Cost:" + bow._cost);
+                Console.WriteLine("3: " + yo._name + " Damage: 40" + " Cost:" + yo._cost);
+                Console.WriteLine("4: " + hammer._name + " Damage: 50" + " Cost:" + hammer._cost);
+                Console.WriteLine("5: " + warhammer._name + " Damage: 60" + " Cost:" + warhammer._cost);
                 //input
-                choice = Console.ReadLine();
+                choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine();
-                //check input
-                if (choice == "1")
+                _itemCost = _inventory[choice]._cost;
+                //check if the player have enough gold
+                if (_gold < _itemCost)
                 {
-                    
-                    _itemCost = _inventory[0]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have bought " + dagger._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        Add(_inventory[0]);
-                        Remove(0);
-                    }
+                    Console.WriteLine("You can't buy this item.");
+                    Console.WriteLine("");
                 }
-                else if (choice == "2")
+                else
                 {
-                    _itemCost = _inventory[1]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have bought " + sword._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[1]);
-                        Remove(1);
-                    }
+                    Console.WriteLine("You have equiped " + light._name + "!");
+                    _gold -= _itemCost;
+                    Console.WriteLine("Gold: " + _gold);
+                    //move the shop item to the player's inventory
+                    _player.Add(_inventory[choice]);
+                    Remove(choice);
                 }
-                else if (choice == "3")
+                //when you type in 20 it will break out of the while loop
+                if (choice == 20)
                 {
-                    _itemCost = _inventory[2]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have bought " + bow._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[2]);
-                        Remove(2);
-                    }
-
-                }
-                else if (choice == "4")
-                {
-                    _itemCost = _inventory[3]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have bought " + yo._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[3]);
-                        Remove(3);
-                    }
-
-                }
-                else if (choice == "5")
-                {
-                    _itemCost = _inventory[4]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have bought " + hammer._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[4]);
-                        Remove(4);
-                    }
-
-                }
-                else if (choice == "6")
-                {
-                    _itemCost = _inventory[5]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have bought " + warhammer._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[5]);
-                        Remove(5);
-                    }
-
+                    break;
                 }
 
             }
@@ -272,159 +153,112 @@ namespace RPGShop
         //open menu to buy armor
         public void Armor()
         {
-            string choice = "";
-            while (choice != "0")
+            int choice = -1;
+            while (choice != 20)
             {
                 //display menu
                 Console.WriteLine("What weapon would you like to buy?");
-                Console.WriteLine("0: Go Back");
-                Console.WriteLine("1:" + light._name + " Defence: 10"  + " Cost:" + light._cost);
-                Console.WriteLine("2:" + medium._name + " Defence: 30"  + " Cost:" + medium._cost);
-                Console.WriteLine("3:" + heavy._name + " Defence: 100"  + " Cost:" + heavy._cost);
+                Console.WriteLine("20: Go Back");
+                Console.WriteLine("6:" + light._name + " Defence: 10" + " Cost:" + light._cost);
+                Console.WriteLine("7:" + medium._name + " Defence: 30" + " Cost:" + medium._cost);
+                Console.WriteLine("8:" + heavy._name + " Defence: 100" + " Cost:" + heavy._cost);
                 //input
-                choice = Console.ReadLine();
+                choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine();
-                //check input
-                if (choice == "1")
+                _itemCost = _inventory[choice]._cost;
+                //check if the player have enough gold
+                if (_gold < _itemCost)
                 {
-                    _itemCost = _inventory[6]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have equiped " + light._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[6]);
-                        Remove(6);
-                    }
-
+                    Console.WriteLine("You can't buy this item.");
+                    Console.WriteLine("");
                 }
-                else if (choice == "2")
+                else
                 {
-                    _itemCost = _inventory[7]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have equiped " + medium._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[7]);
-                        Remove(7);
-                    }
-
+                    Console.WriteLine("You have equiped " + light._name + "!");
+                    _gold -= _itemCost;
+                    Console.WriteLine("Gold: " + _gold);
+                    //move the shop item to the player's inventory
+                    _player.Add(_inventory[choice]);
+                    Remove(choice);
                 }
-                else if (choice == "3")
+                //when you type in 20 it will break out of the while loop
+                if (choice == 20)
                 {
-                    _itemCost = _inventory[8]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have equiped " + heavy._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[8]);
-                        Remove(8);
-                    }
-
+                    break;
                 }
-
             }
         }
         //open menu to buy potion
         public void Potion()
         {
-            string choice = "";
-            while (choice != "0")
+            int choice = -1;
+            while (choice != 20)
             {
                 //display menu
                 Console.WriteLine("What weapon would you like to buy?");
-                Console.WriteLine("0: Go Back");
-                Console.WriteLine("1:" + small._name + " Heals: 20"  + " Cost:" + small._cost);
-                Console.WriteLine("2:" + mid._name + " Heals: 50"  + " Cost:" + mid._cost);
-                Console.WriteLine("3:" + all._name + " Heals: 100"  + " Cost:" + all._cost);
+                Console.WriteLine("20: Go Back");
+                Console.WriteLine("9:" + small._name + " Heals: 20" + " Cost:" + small._cost);
+                Console.WriteLine("10:" + mid._name + " Heals: 50" + " Cost:" + mid._cost);
+                Console.WriteLine("11:" + all._name + " Heals: 100" + " Cost:" + all._cost);
                 //input
-                choice = Console.ReadLine();
+                choice = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine();
-                //check input
-                if (choice == "1")
+                _itemCost = _inventory[choice]._cost;
+                //check if the player have enough gold
+                if (_gold < _itemCost)
                 {
-                    _itemCost = _inventory[9]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have equiped " + small._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[9]);
-                        Remove(9);
-                    }
-
+                     Console.WriteLine("You can't buy this item.");
+                     Console.WriteLine("");
                 }
-                else if (choice == "2")
+                else
                 {
-                    _itemCost = _inventory[10]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have equiped " + mid._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[10]);
-                        Remove(10);
-                    }
-
+                     Console.WriteLine("You have equiped " + small._name + "!");
+                     _gold -= _itemCost;
+                     Console.WriteLine("Gold: " + _gold);
+                     //move the shop item to the player's inventory
+                     _player.Add(_inventory[choice]);
+                     Remove(choice);
                 }
-                else if (choice == "3")
+                //when you type in 20 it will break out of the while loop
+                if (choice == 20)
                 {
-                    _itemCost = _inventory[11]._cost;
-                    //check if the player have enough gold
-                    if (_gold < _itemCost)
-                    {
-                        Console.WriteLine("You can't buy this item.");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You have equiped " + all._name + "!");
-                        _gold -= _itemCost;
-                        Console.WriteLine("Gold: " + _gold);
-                        //move the shop item to the player's inventory
-                        _player.Add(_inventory[11]);
-                        Remove(11);
-                    }
-
+                    break;
                 }
-
+            }
+        }
+        //superuser access. can pick any item they want to be in the inventory for free
+        public void SuperCode()
+        {
+            int choice = -1;
+            while(choice != 20)
+            {
+                //display menu
+                Console.WriteLine("What item(s) do you want?");
+                Console.WriteLine("20: Go Back");
+                Console.WriteLine("0: " + dagger._name + " Damage: 10" + " Cost:" + dagger._cost);
+                Console.WriteLine("1: " + sword._name + " Damage: 20" + " Cost:" + sword._cost);
+                Console.WriteLine("2: " + bow._name + " Damage: 30" + " Cost:" + bow._cost);
+                Console.WriteLine("3: " + yo._name + " Damage: 40" + " Cost:" + yo._cost);
+                Console.WriteLine("4: " + hammer._name + " Damage: 50" + " Cost:" + hammer._cost);
+                Console.WriteLine("5: " + warhammer._name + " Damage: 60" + " Cost:" + warhammer._cost);
+                Console.WriteLine("6:" + light._name + " Defence: 10" + " Cost:" + light._cost);
+                Console.WriteLine("7:" + medium._name + " Defence: 30" + " Cost:" + medium._cost);
+                Console.WriteLine("8:" + heavy._name + " Defence: 100" + " Cost:" + heavy._cost);
+                Console.WriteLine("9:" + small._name + " Heals: 20" + " Cost:" + small._cost);
+                Console.WriteLine("10:" + mid._name + " Heals: 50" + " Cost:" + mid._cost);
+                Console.WriteLine("11:" + all._name + " Heals: 100" + " Cost:" + all._cost);
+                //input
+                choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
+                //when you type in 20 it will break out of the superuser
+                if (choice == 20)
+                {
+                    break;
+                }
+                //add chosen item to player's inven
+                _player.Add(_inventory[choice]);
+                Console.WriteLine("You have " + _inventory[choice]._name + " in your inventory.");
+                Console.WriteLine("");
             }
         }
     }
