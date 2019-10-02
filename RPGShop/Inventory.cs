@@ -11,24 +11,21 @@ namespace RPGShop
         {
             Console.WriteLine("");
             Console.WriteLine("Got " + amount + " gold!");
+            //adds the amount you typed in
             _gold += amount;
             Console.WriteLine("Gold: " + _gold);
             Console.WriteLine("");
         }
-
         public float GetGold()
         {
             return _gold;
         }
-
-        
-        
         protected Item[] _inventory;
         public Inventory()
         {
             _inventory = new Item[0];
         }
-
+        //add to array
         public virtual void Add(Item value)
         {
             Item[] newList = new Item[_inventory.Length + 1];
@@ -39,7 +36,7 @@ namespace RPGShop
             newList[newList.Length - 1] = value;
             _inventory = newList;
         }
-
+        //remove from the array
         public virtual void Remove(int index)
         {
             Item[] newList = new Item[_inventory.Length - 1];
@@ -58,7 +55,7 @@ namespace RPGShop
 
         public virtual void AddedGold()
         {
-            Console.Write("How much gold? ");
+            Console.Write("How much gold?");
             Console.WriteLine("");
             float addedGold = Convert.ToSingle(Console.ReadLine());
             AddGold(addedGold);

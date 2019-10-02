@@ -19,23 +19,35 @@ namespace RPGShop
         public void Print()
         {
             string choice = "";
+            int choice2 = 0;
             Console.WriteLine("You Have");
+            //shows how much gold they have at the moment
+            Console.WriteLine("Gold: " + _gold);
             //shows the items they have at the moment
             for (int i = 0; i < _inventory.Length; i++)
             {
                 Console.WriteLine(_inventory[i]._name);
             }
-            while (choice != "0")
+            while (choice != "No")
             {
                 Console.WriteLine("Would you like to sell your items?");
-                Console.WriteLine("0: No");
-                Console.WriteLine("1: Yes");
+                Console.WriteLine("Yes");
+                Console.WriteLine("No");
                 choice = Console.ReadLine();
                 Console.WriteLine();
-                if (choice == "1")
+                choice = choice.ToUpper();
+                if (choice == "Yes")
                 {
                     Console.WriteLine("What would you like to sell");
-                    
+                    for (int i = 0; i < _inventory.Length; i++)
+                    {
+                        Console.WriteLine(i + ": " + _inventory[i]._name + " Selling for " + _inventory[i]._cost + " Gold.");
+                    }
+                    Int32.TryParse(Console.ReadLine(), out choice2);
+                    Console.WriteLine();
+                    Console.WriteLine("You sole your " + _inventory[choice2]._name + ".");
+                    Sell(choice2);
+                    Console.WriteLine("Gold: " + _gold);
                 }
             }
         }
