@@ -19,19 +19,26 @@ namespace RPGShop
             }
         }
         //help to create a new attack item
-        public AttackItem(string newName, int newDamage, int newCost)
+        public AttackItem(string newName, int newDamage, int newCost, string newDescription)
         {
             _name = newName;
             _damage = newDamage;
             _cost = newCost;
+            _description = newDescription;
         }
-        public override void GetName(string newName)
+        
+        public override void ItemPrint()
         {
-            _name = newName;
+            Console.WriteLine(_name + " Damage: " + _damage);
+            Console.WriteLine(_description);
         }
-        public override int GetCost(int newCost)
+
+        public override void Save(StreamWriter writer)
         {
-            return _cost;
+            writer.WriteLine(_name);
+            writer.WriteLine(Damage);
+            writer.WriteLine(_cost);
+            writer.WriteLine(_description);
         }
     }
 }

@@ -18,19 +18,26 @@ namespace RPGShop
             }
         }
         //help to create a new armor item
-        public ArmorItem(string newName, int newDefence, int newCost)
+        public ArmorItem(string newName, int newDefence, int newCost, string newDescription)
         {
             _name = newName;
             _defence = newDefence;
             _cost = newCost;
+            _description = newDescription;
         }
-        public override void GetName(string newName)
+        
+        public override void ItemPrint()
         {
-            _name = newName;
+            Console.WriteLine(_name + " Defence: " + _defence);
+            Console.WriteLine(_description);
         }
-        public override int GetCost(int newCost)
+
+        public override void Save(StreamWriter writer)
         {
-            return _cost;
+            writer.WriteLine(_name);
+            writer.WriteLine(Defence);
+            writer.WriteLine(_cost);
+            writer.WriteLine(_description);
         }
     }
 }

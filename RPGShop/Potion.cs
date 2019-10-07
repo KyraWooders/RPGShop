@@ -18,19 +18,25 @@ namespace RPGShop
             }
         }
         //help to create a new potion item
-        public Potion(string newName, int newHeal, int newCost)
+        public Potion(string newName, int newHeal, int newCost, string newDescription)
         {
             _name = newName;
             _heal = newHeal;
             _cost = newCost;
+            _description = newDescription;
         }
-        public override void GetName(string newName)
+        public override void ItemPrint()
         {
-            _name = newName;
+            Console.WriteLine(_name + " Heals: " + _heal + "HP");
+            Console.WriteLine(_description);
         }
-        public override int GetCost(int newCost)
+
+        public override void Save(StreamWriter writer)
         {
-            return _cost;
+            writer.WriteLine(_name);
+            writer.WriteLine(Heal);
+            writer.WriteLine(_cost);
+            writer.WriteLine(_description);
         }
     }
 }
